@@ -23,7 +23,7 @@
 
 | **Course**          | **Start Date**   | **End Date**     | **Detailed Schedule**              |
 |----------------------|------------------|------------------|-------------------------------------|
-| **Elixir Intro**     | 27-01-2025       | 05-01-2025       | [Detailed Schedule](01-elixir-intro.md) |
+| **Elixir Intro**     | 27-01-2025       | 05-02-2025       | [Detailed Schedule](01-elixir-intro.md) |
 | **Elixir + Phoenix** | 06-02-2025  | 27-02-2025  | [Detailed Schedule](02-elixir-phoenix.md) |
 
 #### 2.1 Official documentation
