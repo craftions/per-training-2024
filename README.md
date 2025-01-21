@@ -44,8 +44,33 @@
 - Surprise gift
 
 ##### 2.2.2 Evaluation :
-- Presentation
-- Q&A session.
+
+##### 1. Introduction (2 minutes)
+- Greet the audience and introduce yourself.
+- Briefly explain the problem your project addresses.
+- State the project's main objective.
+
+##### 2. Concepts and Approach (3 minutes)
+- Highlight key technologies and concepts used.
+- Explain why they were chosen.
+- Keep it simple and relevant.
+
+##### 3. Project Structure (4 minutes)
+- Show the overall architecture or design.
+- Use a diagram or flowchart to explain key components.
+- Emphasize how it solves the problem.
+
+##### 4. Live Demonstration (4 minutes)
+- Showcase the main features live.
+- Highlight how it meets the project’s goals.
+- Have screenshots or videos ready as a backup.
+
+##### 5. Conclusion and Q&A (2 minutes)
+- Summarize key takeaways and potential impact.
+- Mention possible improvements briefly.
+
+##### 6. Q&A (5 minutes)
+- Open the floor for questions.
 
 **Important:** If this training is not completed, the process will be restarted.
 
