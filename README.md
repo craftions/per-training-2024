@@ -1,4 +1,4 @@
-# PostgreSQL + Elixir + Redis = PER 2025-I
+# PostgreSQL + Elixir + Redis = PER 2024-I
 
 ## Training
 
@@ -8,14 +8,14 @@
 
 | **Time**     | **Monday**  | **Tuesday**           | **Wednesday** | **Thursday**          | **Friday**  |
 |--------------|-------------|-----------------------|---------------|-----------------------|-------------|
-| 9:00 - 10:00 | Class       | **In-person class**   | Class         | **In-person class**   | Class       |
+| 09:00 - 10:00 | Class       |  Class  | **In-person class**         |  Class  | **In-person class**       |
 | 10:00 - 11:00| Class       | Class                | Class         | Class                | Class       |
 
 #### 1.2. Evening Class Schedule (PM)
 
 | **Time**     | **Monday**  | **Tuesday**           | **Wednesday** | **Thursday**          | **Friday**  |
 |--------------|-------------|-----------------------|---------------|-----------------------|-------------|
-| 8:00 - 9:00  | Class       | **In-person class**   | Class         | **In-person class**   | Class       |
+| 08:00 - 09:00 | Class       |  Class  | **In-person class**         |  Class  | **In-person class**       |
 | 9:00 - 10:00 | Class       | Class                | Class         | Class                | Class       |
 
 
