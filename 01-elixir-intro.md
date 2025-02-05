@@ -17,7 +17,7 @@
 - Hello World in Elixir
 - Data Types - Atom
 
-## 28-01-2025 - 29-01-2025
+## [28-01-2025 - 29-01-2025](./courses/01-elixir-intro/Elixir%20Crash%20Course%2028-01-2025%20-%2029-01-2025.livemd)
 
 - Data Types - String
 - Data Types - String
@@ -29,7 +29,7 @@
 - Mix Project
 - Head & Tail Recursion
 
-## 30-01-2025 - 31-01-2025
+## [30-01-2025 - 31-01-2025](./courses/01-elixir-intro/Elixir%20Crash%20Course%2030-01-2025%20-%2031-01-2025.livemd)
 
 - Recursion - Sum Digits
 - Recursion - Factorial

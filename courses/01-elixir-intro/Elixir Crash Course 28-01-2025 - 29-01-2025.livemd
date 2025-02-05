@@ -1,0 +1,439 @@
+<!-- livebook:{"persist_outputs":true} -->
+
+# Elixir Crash Course ( 28-01-2025 - 29-01-2025 )
+
+## Data Types - String
+
+## Operaciones comunes con Strings
+
+### Concatenación
+
+```elixir
+"Hola, " <> "Mundo!"  # "Hola, Mundo!"
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"Hola, Mundo!"
+```
+
+### Longitud de una cadena
+
+```elixir
+String.length("Elixir")  # 6
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+6
+```
+
+### Convertir a mayúsculas
+
+```elixir
+String.upcase("elixir")  # "ELIXIR"
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"ELIXIR"
+```
+
+## Data Types - Charlist, Process & List
+
+### Charlist
+
+En Elixir, una charlist es una lista de números enteros donde cada número representa un carácter en su código ASCII/Unicode.
+
+```
+'hello'  # => [104, 101, 108, 108, 111]
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+Nota: Se escriben con comillas simples (' '), a diferencia de los Strings, que usan comillas dobles (" ").
+
+## Process
+
+Elixir usa procesos ligeros para la concurrencia. Se crean con spawn/1 o spawn/3.
+
+```elixir
+spawn(fn -> IO.puts("¡Hola desde un proceso!") end)
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+#PID<0.180.0>
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+¡Hola desde un proceso!
+```
+
+## List
+
+Las listas en Elixir son estructuras enlazadas. Se usan con [].
+
+```elixir
+list = [1, 2, 3, 4]
+[0 | list]  # Agrega un elemento al inicio: [0, 1, 2, 3, 4]
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+[0, 1, 2, 3, 4]
+```
+
+## Data Types - Tuples & Keyword List
+
+### Tuples
+
+Los tuples en Elixir son estructuras inmutables que almacenan elementos en una colección indexada.
+
+```elixir
+tupla = {:ok, "Éxito"}
+elem(tupla, 1)  # "Éxito"
+put_elem(tupla, 1, "Nuevo Valor")  # {:ok, "Nuevo Valor"}
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+{:ok, "Nuevo Valor"}
+```
+
+### Keyword List
+
+Las keyword lists son listas de tuplas con llaves como átomos.
+
+```elixir
+opts = [timeout: 5000, retries: 3]
+opts[:timeout]  # 5000
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+5000
+```
+
+Se usan comúnmente en configuraciones de funciones.
+
+## Data Types - Maps
+
+Los Maps son estructuras clave-valor más flexibles que las Keyword Lists.
+
+```elixir
+map = %{"nombre" => "Elixir", "version" => 1.15}
+map["nombre"]  # "Elixir"
+
+# Acceder usando átomos como claves
+mapa_atomico = %{nombre: "Elixir", version: 1.15}
+mapa_atomico.nombre  # "Elixir"
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"Elixir"
+```
+
+## Data Types - Struct
+
+Las Structs son mapas con un conjunto predefinido de claves y valores por defecto.
+
+```elixir
+defmodule Usuario do
+  defstruct nombre: "Anónimo", edad: 0
+end
+
+user = %Usuario{nombre: "Carlos", edad: 30}
+user.nombre  # "Carlos"
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+error: cannot access struct Usuario, the struct was not yet defined or the struct is being accessed in the same context that defines it
+└─ Development/craftions/projects/per-training-2024/courses/01-elixir-intro/Elixir Crash Course 28-01-2025 - 29-01-2025.livemd#cell:5la3z75iyqu4idxu:5
+
+```
+
+## Flow Control
+
+Elixir tiene varias formas de controlar el flujo del programa.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Debería tenerse en cuenta que en Elixir, los únicos valores falsos son nil y el booleano false.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Condicionales (if, unless)
+
+```elixir
+if true do
+  "Esto se ejecuta"
+else
+  "No se ejecuta"
+end
+
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"Esto se ejecuta"
+```
+
+Usar unless es como if solo que trabaja en forma inversa:
+
+```elixir
+unless false do
+  "Esto también se ejecuta"
+end
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"Esto también se ejecuta"
+```
+
+### Cond
+
+<!-- livebook:{"break_markdown":true} -->
+
+Cuando necesitamos coincidencias con condiciones, y no valores, podemos cambiar a cond; esto es parecido a else if o elsif en otros lenguajes:
+
+```elixir
+cond do
+  2 + 2 == 5 -> "No es cierto"
+  1 + 1 == 2 -> "Correcto"
+end
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"Correcto"
+```
+
+Como case, cond lanzará un error si no hay una coincidencia. Para manejar esto, podemos definir una condición cuyo valor es true:
+
+```
+cond do
+  7 + 1 == 0 -> "Incorrect"
+  true -> "Catch all"
+end
+"Catch all"
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Case
+
+<!-- livebook:{"break_markdown":true} -->
+
+Si es necesario buscar una coincidencia en múltiples patrones podemos usar case:
+
+```elixir
+case {1, 2, 3} do
+  {1, x, 3} -> "El valor de x es #{x}"
+  _ -> "No coincidió"
+end
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+"El valor de x es 2"
+```
+
+La variable _ es una inclusión importante en la declaración case. Sin esto, cuando no se encuentre una coincidencia, se lanzará un error:
+
+```
+case :even do
+  :odd -> "Odd"
+end
+** (CaseClauseError) no case clause matching: :even
+
+case :even do
+  :odd -> "Odd"
+  _ -> "Not Odd"
+end
+"Not Odd"
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+Considera _ como el else que coincidirá con “todo lo demás”. Ya que case se basa en la coincidencia de patrones, se aplican las mismas reglas y restricciones. Si intentas coincidir con variables existentes debes usar el operador pin ^:
+
+```
+pie = 3.14
+ 3.14
+case "cherry pie" do
+  ^pie -> "Not so tasty"
+  pie -> "I bet #{pie} is tasty"
+end
+"I bet cherry pie is tasty"
+```
+
+## Mix Project
+
+Mix es la herramienta de construcción y gestión de proyectos en Elixir.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Crear un proyecto
+
+<!-- livebook:{"break_markdown":true} -->
+
+Cuando estamos listos para crear un nuevo proyecto Elixir, mix lo hace fácil con el comando mix new. Esto generará la estructura y los archivos necesarios de nuestro proyecto. Esto es bastante sencillo, ahora vamos a empezar:
+
+```
+mix new mi_proyecto
+```
+
+De la salida podemos ver que mix ha creado nuestro directorio y un número de archivos:
+
+```
+* creating README.md
+* creating .formatter.exs
+* creating .gitignore
+* creating mix.exs
+* creating lib
+* creating lib/my_project.ex
+* creating test
+* creating test/test_helper.exs
+* creating test/my_project_test.exs
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+En mix.exs. Aquí configuramos nuestra aplicación, dependencias, entornos, y versión. Abre el archivo en tu editor favorito, deberías ver algo como esto:
+
+```
+defmodule MyProject.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :my_project,
+      version: "0.1.0",
+      elixir: "~> 1.17",
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
+  end
+
+  # Run "mix help compile.app" to learn about applications.
+  def application do
+    [
+      extra_applications: [:logger]
+    ]
+  end
+
+  # Run "mix help deps" to learn about dependencies.
+  defp deps do
+    [
+      # {:dep_from_hexpm, "~> 0.3.0"},
+      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+    ]
+  end
+end
+```
+
+La primera sección que vamos a ver es project. Aquí vamos a definir el nombre de nuestra aplicación(app), especificar la versión del proyecto(version), la versión de Elixir(elixir), y finalmente nuestras dependencias(deps).
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Ejecutar el proyecto
+
+<!-- livebook:{"break_markdown":true} -->
+
+La ejecución del proyecto se realiza usando mix run
+
+<!-- livebook:{"break_markdown":true} -->
+
+```
+cd my_proyecto
+mix run
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Administrar dependencias
+
+<!-- livebook:{"break_markdown":true} -->
+
+La gestión de la dependencias se realiza en la section deps. A continuación agregamos la dependencia :plug_cowboy versión 2.5
+
+```
+defp deps do
+  [
+    {:plug_cowboy, "~> 2.5"}
+  ]
+end
+```
+
+La actualización de las dependencias se realiza usando mix deps.get
+
+```
+mix deps.get
+```
+
+## Head & Tail Recursion
+
+La recursión de cabeza (Head Recursion) y la recursión de cola (Tail Recursion) son técnicas fundamentales en Elixir.
+
+### Head Recursion
+
+Cada llamada a la función mantiene en memoria el contexto anterior.
+
+```elixir
+defmodule Recursion do
+  def suma_lista([head | tail]) do
+    head + suma_lista(tail)
+  end
+  def suma_lista([]), do: 0
+end
+
+Recursion.suma_lista([1, 2, 3, 4])  # 10
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+10
+```
+
+### Tail Recursion
+
+Optimiza el uso de memoria acumulando el resultado en cada llamada.
+
+```elixir
+defmodule TailRecursion do
+  def suma_lista(lista, acumulador \\ 0)
+
+  def suma_lista([], acumulador), do: acumulador
+  def suma_lista([head | tail], acumulador), do: suma_lista(tail, acumulador + head)
+end
+
+TailRecursion.suma_lista([1, 2, 3, 4])  # 10
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+10
+```
+
+La recursión de cola es más eficiente porque el compilador puede optimizarla (Tail Call Optimization - TCO).

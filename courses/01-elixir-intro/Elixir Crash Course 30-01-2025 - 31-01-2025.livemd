@@ -1,0 +1,175 @@
+# Elixir Crash Course 30-01-2025 - 31-01-2025
+
+## Recursión - Sum Digits
+
+La recursión en Elixir se usa para descomponer un problema en partes más pequeñas. Para sumar los dígitos de un número, separamos el último dígito y llamamos recursivamente a la función con el resto.
+
+### Ejemplo
+
+```elixir
+defmodule Recursion do
+  def sum_digits(0), do: 0
+  def sum_digits(n), do: rem(n, 10) + sum_digits(div(n, 10))
+end
+
+Recursion.sum_digits(1234)  # 1 + 2 + 3 + 4 = 10
+```
+
+### Explicación:
+
+* rem(n, 10) obtiene el último dígito del número.
+* div(n, 10) obtiene el número sin el último dígito.
+* La recursión se detiene cuando n es 0.
+
+## Recursión - Factorial
+
+El factorial de un número n (n!) se define como n * (n-1)!, con el caso base 0! = 1.
+
+```elixir
+defmodule Math do
+  def factorial(0), do: 1
+  def factorial(n), do: n * factorial(n - 1)
+end
+
+Math.factorial(5)  # 5 * 4 * 3 * 2 * 1 = 120
+```
+
+### Explicación:
+
+* Se multiplica n por el factorial de n-1.
+* Se detiene cuando n llega a 0.
+
+## Recursión - Reverse Number
+
+Para invertir un número, extraemos el último dígito y lo vamos agregando a un acumulador.
+
+```elixir
+defmodule Reverse do
+  def reverse_number(n, acc \\ 0)
+
+  def reverse_number(0, acc), do: acc
+  def reverse_number(n, acc), do: reverse_number(div(n, 10), acc * 10 + rem(n, 10))
+end
+
+Reverse.reverse_number(1234)  # 4321
+```
+
+### Explicación:
+
+* rem(n, 10) obtiene el último dígito.
+* acc * 10 + dígito lo va agregando en orden inverso.
+* div(n, 10) reduce n hasta llegar a 0.
+
+## Lists Are LinkedList!!!
+
+Las listas en Elixir son listas enlazadas, no arreglos. Esto significa que cada elemento de la lista apunta al siguiente, y la única manera de acceder a un elemento es recorriendo desde el inicio.
+
+### Ejemplo de una lista en Elixir
+
+```elixir
+list = [1, 2, 3, 4]
+```
+
+Internamente, esta lista se representa como:
+
+```elixir
+[1 | [2 | [3 | [4 | []]]]]
+```
+
+Cada elemento tiene un valor (head) y un puntero al siguiente (tail).
+
+Esto hace que:
+
+* Agregar un elemento al inicio ([0 | list]) sea rápido (O(1)).
+
+* Obtener el último elemento sea lento (O(n)).
+
+## List Sum
+
+Para sumar los elementos de una lista, podemos usar recursión.
+
+### Ejemplo
+
+```elixir
+defmodule ListOpsSum do
+  def sum([]), do: 0
+  def sum([head | tail]), do: head + sum(tail)
+end
+
+ListOpsSum.sum([1, 2, 3, 4])  # 10
+```
+
+### Explicación:
+
+* Si la lista está vacía, retorna 0.
+* Toma el primer elemento (head), lo suma y llama recursivamente con el resto (tail).
+
+## Reverse List
+
+Para invertir una lista, podemos usar recursión con un acumulador.
+
+### Ejemplo
+
+```elixir
+defmodule ListOpsForReverse do
+  def reverse(list, acc \\ [])
+
+  def reverse([], acc), do: acc
+  def reverse([head | tail], acc), do: reverse(tail, [head | acc])
+end
+
+ListOpsForReverse.reverse([1, 2, 3, 4])  # [4, 3, 2, 1]
+```
+
+### Explicación:
+
+* head se agrega al inicio de acc, invirtiendo el orden.
+* tail se procesa recursivamente hasta que la lista está vacía.
+
+<!-- livebook:{"break_markdown":true} -->
+
+También podemos usar Enum.reverse/1:
+
+```elixir
+Enum.reverse([1, 2, 3, 4])  # [4, 3, 2, 1]
+```
+
+## List Map
+
+map/2 aplica una función a cada elemento de la lista.
+
+### Ejemplo con recursión
+
+```elixir
+defmodule ListOpsMap do
+  def map([], _func), do: []
+  def map([head | tail], func), do: [func.(head) | map(tail, func)]
+end
+
+ListOpsMap.map([1, 2, 3, 4], fn x -> x * 2 end)  # [2, 4, 6, 8]
+```
+
+### Explicación:
+
+* Aplica func.(head) al primer elemento.
+* Llama recursivamente con el resto de la lista.
+
+<!-- livebook:{"break_markdown":true} -->
+
+También podemos usar Enum.map/2:
+
+```elixir
+Enum.map([1, 2, 3, 4], &(&1 * 2))  # [2, 4, 6, 8]
+```
+
+## Resumen
+
+| Tema                    | Explicación                                          | Código                            |
+| ----------------------- | ----------------------------------------------------- | ---------------------------------- |
+| Sum Digits              | Suma los dígitos de un número usando rem/2 y div/2. | `sum_digits(1234) -> 10`           |
+| Factorial               | Calcula n! usando recursión.                         | `factorial(5) -> 120`              |
+| Reverse Number          | Invierte un número con acumulador.                   | `reverse_number(1234) -> 4321`     |
+| Lists Are LinkedList!!! | Explica cómo las listas son estructuras enlazadas.   |                                    |
+| List Sum                | Suma todos los elementos de una lista recursivamente. | `sum([1, 2, 3]) -> 6`              |
+| Reverse List            | Invierte una lista con recursión.                    | `reverse([1, 2, 3]) -> [3, 2, 1]`  |
+| List Map                | Aplica una función a cada elemento de la lista.      | `map([1,2,3], &(&1*2)) -> [2,4,6]` |
